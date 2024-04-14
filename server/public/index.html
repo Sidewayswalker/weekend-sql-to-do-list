@@ -5,13 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <script src="./scripts/axios.js"></script>
-  <script src="./scripts/client.js"></script>
+  <script defer src="./scripts/client.js"></script>
   <title>SQL TO-DO List</title>
 </head>
 <body>
   <header>
     <h1>SQL TO-DO List</h1>
   </header>
+  <form>
+    <input data-testid="toDoTextInput" type="text" id="taskIn" value="" placeholder="Enter a Task">
+    <button data-testid="submitButton" onclick="submitTask(event)">Submit</button>
+  </form>
+
+  <table>
+    <tr>
+      <th>Task</th>
+      <th>Completed?</th>
+      <th>Delete</th>
+    </tr>
+    <tr>
+      <td>Clean my Room</td>
+      <td>false</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td>Finish my Taxes</td>
+      <td>false</td>
+      <td>❌</td>
+    </tr>
+  </table>
 
 </body>
 </html>
