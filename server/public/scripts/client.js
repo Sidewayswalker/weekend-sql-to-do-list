@@ -15,21 +15,35 @@ function getToDoList() {
     });
 }
 
-function renderToDoList(todos){
-    let toDoLocation = document.getElementById("to-do-table-body");
-    toDoLocation.innerHTML = "";
-    // Loop over each task and append data to the DOM.
-    for (let todo of todos) {
-        toDoLocation.innerHTML += `
+function renderToDoList(todos) {
+  let toDoLocation = document.getElementById("to-do-table-body");
+  toDoLocation.innerHTML = "";
+  // Loop over each task and append data to the DOM.
+  for (let todo of todos) {
+    if (todo.isComplete === false) {
+      toDoLocation.innerHTML += `
             <tr data-testid="toDoItem">
                 <td>${todo.text}</td>
-                <td>${todo.isComplete}</td>
+                <td>
+                    <button data-testid="completeButton" onclick="markTaskComplete(${todo.id})">Complete</button>
+                </td>
                 <td>
                     <button data-testid="deleteButton" onclick="deleteButton(${todo.id})">❌</button>
                 </td>
             </tr>
-        `
+        `;
+    } else {
+      toDoLocation.innerHTML += `
+        <tr data-testid="toDoItem">
+                <td>${todo.text}</td>
+                <td data-testid="toDoItem"></td>
+                <td>
+                    <button data-testid="deleteButton" onclick="deleteButton(${todo.id})">❌</button>
+                </td>
+            </tr>
+        `;
     }
+  }
 }
 //* GET - END
 
@@ -66,20 +80,35 @@ function clearForm() {
 //* CLEAR Input Fields
 
 //! DELETE - START
-function deleteButton(todoId){
-    console.log("todoId is:", todoId);
-    axios({
-        method: "DELETE",
-        url: `/todos/${todoId}`,
+function deleteButton(todoId) {
+  console.log("todoId is:", todoId);
+  axios({
+    method: "DELETE",
+    url: `/todos/${todoId}`,
+  })
+    .then((response) => {
+      getToDoList();
     })
-        .then((response) => {
-            getToDoList();
-        })
-        .catch((error) => {
-            console.log("deleteTodo sure broke...", error);
-        });
+    .catch((error) => {
+      console.log("deleteTodo sure broke...", error);
+    });
 }
 //* DELETE - END
-
+//! PUT is UPDATE - START
+function markTaskComplete(todoId) {
+  axios({
+    method: "PUT",
+    url: `/todos/${todoId}`,
+  })
+    .then(function (response) {
+      // Retrieve the latest to do list
+      getToDoList();
+    })
+    .catch(function (error) {
+      // If there is an error, show alert.
+      alert("Error changing task to completed.");
+    });
+}
+//* PUT is UPDATE - END
 
 getToDoList();

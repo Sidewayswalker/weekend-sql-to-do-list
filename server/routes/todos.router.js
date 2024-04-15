@@ -64,7 +64,6 @@ router.delete('/:todo_id', (req, res) => {
         DELETE FROM todos
             WHERE id = $1;
     `
-
     const sqlValues = [todoIdToDelete];
 
     pool.query(sqlText, sqlValues)
@@ -77,7 +76,25 @@ router.delete('/:todo_id', (req, res) => {
   })
 })
 
+//! PUT 
+router.put('/:id', (req, res) => {
+    // get the id from the params, store in a variable called todoId
+    let todoId = req.params.id;
+    console.log('todo Id is:', todoId)
 
+    let sqlText = `
+        UPDATE todos SET "isComplete" = TRUE
+            WHERE id = $1
+        `
+    pool.query(sqlText, [todoId])
+    .then(() => {
+      res.sendStatus(200)
+    })
+    .catch((error) => {
+      console.log('Error on /rank/:id', error)
+      res.sendStatus(500)
+    })
+})
 
 
 
