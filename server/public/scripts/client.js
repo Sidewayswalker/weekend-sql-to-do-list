@@ -25,7 +25,7 @@ function renderToDoList(todos){
                 <td>${todo.text}</td>
                 <td>${todo.isComplete}</td>
                 <td>
-                    <button onclick="deleteButton(${todo.id})">❌</button>
+                    <button data-testid="deleteButton" onclick="deleteButton(${todo.id})">❌</button>
                 </td>
             </tr>
         `
