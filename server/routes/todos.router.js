@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 });
 
 
-//! GET - END
+//* GET - END
 
 
 //! POST - START
@@ -52,7 +52,32 @@ router.post('/', (req, res) => {
         })
 });
 
-//! POST -END
+//* POST -END
+
+//! DELETE - START
+router.delete('/:todo_id', (req, res) => {
+    console.log('req.params is:', req.params);
+
+    const todoIdToDelete = req.params.todo_id;
+
+    const sqlText = `
+        DELETE FROM todos
+            WHERE id = $1;
+    `
+
+    const sqlValues = [todoIdToDelete];
+
+    pool.query(sqlText, sqlValues)
+  .then((dbRes) => {
+     res.sendStatus(200);
+  })
+  .catch((dbErr) => {
+    console.log('DELETE /todos/:todo_id fail:', dbErr);
+    res.sendStatus(500);
+  })
+})
+
+
 
 
 

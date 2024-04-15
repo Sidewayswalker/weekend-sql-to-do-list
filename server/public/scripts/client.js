@@ -21,14 +21,17 @@ function renderToDoList(todos){
     // Loop over each task and append data to the DOM.
     for (let todo of todos) {
         toDoLocation.innerHTML += `
-            <tr>
+            <tr data-testid="toDoItem">
                 <td>${todo.text}</td>
                 <td>${todo.isComplete}</td>
+                <td>
+                    <button onclick="deleteButton(${todo.id})">❌</button>
+                </td>
             </tr>
         `
     }
 }
-//! GET - END
+//* GET - END
 
 //! POST - START
 function submitTask(event) {
@@ -54,13 +57,29 @@ function submitTask(event) {
       console.log("Error", error);
     });
 }
-//! POST - END
+//* POST - END
 
 //! CLEAR Input Fields
 function clearForm() {
   document.getElementById("taskIn").value = "";
 }
-//! CLEAR Input Fields
+//* CLEAR Input Fields
+
+//! DELETE - START
+function deleteButton(todoId){
+    console.log("todoId is:", todoId);
+    axios({
+        method: "DELETE",
+        url: `/todos/${todoId}`,
+    })
+        .then((response) => {
+            getToDoList();
+        })
+        .catch((error) => {
+            console.log("deleteTodo sure broke...", error);
+        });
+}
+//* DELETE - END
 
 
 getToDoList();
