@@ -34,7 +34,7 @@ function renderToDoList(todos) {
         `;
     } else {
       toDoLocation.innerHTML += `
-        <tr data-testid="toDoItem" id="GreenBackground">
+        <tr data-testid="toDoItem" class="completed">
                 <td>${todo.text}</td>
                 <td></td>
                 <td>
