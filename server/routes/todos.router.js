@@ -2,7 +2,26 @@ const router = require('express').Router();
 const pool = require('../modules/pool');
 
 //! GET - START
+router.get('/', (req, res) => {
+    console.log('GET /todos!');
+    // Here's the SQL query I need to send to the db:
+    const sqlText = `
+        SELECT * FROM todos
+        ORDER BY id;
+    `
 
+    // Use our pool object to query thee db:
+    pool.query(sqlText)
+        .then((dbResult) => {
+            let todosWeAskedFor = dbResult.rows;
+            res.send(todosWeAskedFor);
+        })
+        .catch((dbError) => {
+            console.log('DB query failed inside GET /todos!');
+            console.log('Error is:', dbError);
+            res.sendStatus(500);
+        })
+});
 
 
 //! GET - END
