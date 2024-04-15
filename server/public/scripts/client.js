@@ -34,9 +34,9 @@ function renderToDoList(todos) {
         `;
     } else {
       toDoLocation.innerHTML += `
-        <tr data-testid="toDoItem">
+        <tr data-testid="toDoItem" id="GreenBackground">
                 <td>${todo.text}</td>
-                <td data-testid="toDoItem"></td>
+                <td></td>
                 <td>
                     <button data-testid="deleteButton" onclick="deleteButton(${todo.id})">❌</button>
                 </td>
