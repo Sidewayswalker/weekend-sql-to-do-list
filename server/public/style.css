@@ -12,11 +12,13 @@ form {
     text-align: center;
 }
 table{
+    background-color: aliceblue;
     border-style: double;
     border-width: 7px;
     border-color: black;
     margin: 0 auto;
     margin-top: 20px;
+    padding: 10px 10px 10px 10px;
 }
 th {
     border-style: solid;
@@ -24,7 +26,6 @@ th {
 }
 body {
     background-image: url(/images/city_background.jpg);
-    background-color: #b9f6ea;
     background-size: cover;
     background-repeat: no-repeat;
 }
